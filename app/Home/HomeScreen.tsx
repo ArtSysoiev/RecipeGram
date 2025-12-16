@@ -1,7 +1,7 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet, Text, View } from 'react-native';
-import NewRecipeScreen from './NewRecipeScreen';
+import NewRecipeTab from './NewRecipeTab';
 
 
 function HomeFeed() {
@@ -51,7 +51,7 @@ export default function HomeScreen() {
       })}
     >
       <Tab.Screen name="Home" component={HomeFeed} />
-      <Tab.Screen name="New Recipe" component={NewRecipeScreen} />
+      <Tab.Screen name="New Recipe" component={NewRecipeTab} />
       <Tab.Screen name="Profile" component={UserProfile} />
     </Tab.Navigator>
   );

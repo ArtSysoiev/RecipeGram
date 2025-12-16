@@ -30,7 +30,6 @@ interface Step {
     imageUri: string | null
 }
 
-// --- SUBCOMPONENTS ---
 
 const MainImagePicker = ({ imageUri, onPickImage }: { imageUri: string | null, onPickImage: () => void }) => {
     return (
@@ -158,7 +157,7 @@ const StepEditorModal = ({
 
 // --- MAIN SCREEN ---
 
-export default function NewRecipeScreen() {
+export default function NewRecipeTab() {
     const navigation = useNavigation()
 
     const [name, setName] = useState("")
@@ -587,7 +586,7 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 30
     },
-    // Ingredient Cards (New Style)
+
     ingredientCard: {
         flexDirection: "row",
         alignItems: "center",
@@ -604,7 +603,7 @@ const styles = StyleSheet.create({
     ingredientInputs: {
         flex: 1,
         flexDirection: "row",
-        alignItems: 'center'
+        alignItems: 'center',
     },
     cleanInput: {
         padding: 14,
@@ -612,9 +611,9 @@ const styles = StyleSheet.create({
         color: "#333"
     },
     verticalLine: {
-        width: 1,
-        height: "60%",
-        backgroundColor: "#eee"
+        width: 3,
+        height: 25,
+        backgroundColor: "#d1d1d1ff",
     },
     deleteIconBtn: {
         padding: 14,
@@ -626,7 +625,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         padding: 14,
-        backgroundColor: "#6a0dad", // Purple
+        backgroundColor: "#6a0dad",
         borderRadius: 8,
         marginTop: 5,
         elevation: 3
