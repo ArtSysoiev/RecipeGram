@@ -4,6 +4,7 @@ import { FlatList, StyleSheet, View } from 'react-native'
 import { Button, Text, useTheme } from 'react-native-paper'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
+import AuthInput from '@/components/auth_input'
 import RecipeCard from '../../components/recipe_card'
 import { getAllRecipes } from '../../services/recipe'
 import { Recipe } from '../../types'
@@ -12,6 +13,7 @@ export default function FeedScreen() {
   const theme = useTheme()
   const router = useRouter()
   const [recipes, setRecipes] = useState<Recipe[]>([])
+  const [searchText, setSearchText] = useState("")
   const [loading, setLoading] = useState(true)
 
   async function loadData() {
@@ -27,6 +29,12 @@ export default function FeedScreen() {
     }, [])
   )
 
+  async function handleSearch(text: string) {
+    setSearchText(text)
+    const data = await getAllRecipes(text)
+    setRecipes(data)
+  }
+
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: theme.colors.background }]}>
       
@@ -34,6 +42,16 @@ export default function FeedScreen() {
         <Text variant="headlineMedium" style={{ fontWeight: 'bold', color: theme.colors.primary }}>
             RecipeGram
         </Text>
+      </View>
+
+      <View style = {{marginHorizontal: 15}} >
+        <AuthInput 
+        label='Search'
+        onChangeText={handleSearch}
+        icon='magnify'
+        value={searchText}
+        error=""
+        />
       </View>
 
       <FlatList
