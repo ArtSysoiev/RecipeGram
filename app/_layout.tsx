@@ -1,24 +1,41 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import { AuthProvider } from '@/context/auth'
+import { Stack } from 'expo-router'
+import { useEffect } from 'react'
+import { MD3DarkTheme, PaperProvider } from 'react-native-paper'
+import { initDatabase } from '../database/db'
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
 
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
+const theme = {
+  ...MD3DarkTheme,
+  colors: {
+    ...MD3DarkTheme.colors,
+    primary: '#002fff',
+    onPrimary: '#FFFFFF',
+    background: '#121212',
+    surface: '#1E1E1E',
+    error: '#CF6679',
+  },
+}
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
+  useEffect(() => {
+    initDatabase()
+  }, [])
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
-  );
+    <PaperProvider theme={theme}>
+      <AuthProvider>
+        <Stack 
+          initialRouteName="index"
+          screenOptions={{ 
+            headerShown: false,
+            contentStyle: { backgroundColor: theme.colors.background },
+            animation: 'slide_from_right' 
+          }}
+        >
+          <Stack.Screen name="recipe_details" />
+        </Stack>
+      </AuthProvider>
+    </PaperProvider>
+  )
 }

@@ -2,11 +2,12 @@
   "expo": {
     "name": "RecipeGram",
     "slug": "RecipeGram",
+    "backgroundColor": "#121212", 
+    "userInterfaceStyle": "dark",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "recipegram",
-    "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true
