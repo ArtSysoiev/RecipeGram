@@ -2,9 +2,9 @@ import db from '../database/db'
 
 import { Recipe } from '../types'
 
-export async function getAllRecipes(): Promise<Recipe[]> {
+export async function getAllRecipes(name: string | undefined = ""): Promise<Recipe[]> {
     try {
-        const query = `
+        let query = `
       SELECT 
         recipes.*, 
         users.username as author_name,
@@ -12,9 +12,12 @@ export async function getAllRecipes(): Promise<Recipe[]> {
         (SELECT COUNT(*) FROM steps WHERE steps.recipe_id = recipes.id) as steps_count
       FROM recipes 
       JOIN users ON recipes.author_id = users.id
-      ORDER BY created_at DESC
     `
-        const results = await db.getAllAsync(query)
+        if (name) {
+          query += " WHERE recipes.name LIKE ?"
+        }
+        query += " ORDER BY created_at DESC"
+        const results = await db.getAllAsync(query, [`%${name}%`])
         return results as Recipe[]
     } catch (error) {
         console.error('Error getting recipes:', error)
